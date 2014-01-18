@@ -29,7 +29,7 @@ To make a talk ready for the web:
 1. At this stage I've already created a setup.txt file but for other talks you can create a placeholder:
     
         perl webify.pl mytalk/ -source=mytalk/source/ -setup
-1. Edit the mytalk/setup.txt file so that the meta data is correct and the times for the slides are correct. This is the step that requires the majority of the human input as you'll need to work out the timings.
+1. Edit the `mytalk/setup.txt` file so that the meta data is correct and the times for the slides are correct. This is the step that requires the majority of the human input as you'll need to work out the timings.
 1. Now you need to create all the slides, audio and video files that will be used by the webpage. These get saved in the `mytalk/` directory.
     
         perl webify.pl mytalk/ -source=mytalk/source/ -makeslides -makeaudio -makevideo
@@ -37,4 +37,4 @@ To make a talk ready for the web:
     
         perl webify.pl mytalk/ -source=mytalk/source/
 
-The result should be that the output directory "mytalk/" now contains all the slides (3 sizes of each), audio (MP3 and OGG), video extracts (MP4, WebM) and an index.html file (as well as the original setup.txt file).
+The result should be that the output directory `mytalk/` now contains all the slides (3 sizes of each), audio (MP3 and OGG), video extracts (MP4, WebM) and an `index.html` file (as well as the original `setup.txt` file).
