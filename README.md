@@ -16,14 +16,14 @@ convert	convert
 
 To make a talk ready for the web:
 
-1. Save the talk PDF and video to the mytalk/source/ directory.
+1. Save the talk PDF and video to the `mytalk/source/` directory.
 1. Extract the slides from the PDF. This step saves intermediate files in the format `slide-NN.png` within the source directory. If you have something other than a PDF you'll have to find your own way to extract the slides.
     
         perl webify.pl -extractslides=mytalk/source/mytalk_slides.pdf
 1. Extract the audio from the video. This step saves this intermediate file to the source directory as `extracted.wav`.
     
         perl webify.pl -extractaudio=mytalk/source/mytalk.mov
-1. If there is a demo in the talk that needs video, you can extract that part. This saves this intermediate file to the source directory as `extracted.mp4`.
+1. If there is a demo in the talk that needs video, you can extract that part from the main video. This extracted part is saved to the source directory as `extracted.mp4`. If you need to extract multiple parts you'll want to rename them between each extraction.
     
         perl webify.pl -extractvideo=mytalk-source/mytalk.mov -start=19:53 -end=36:48
 1. At this stage I've already created a setup.txt file but for other talks you can create a placeholder:
