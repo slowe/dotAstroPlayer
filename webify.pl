@@ -51,15 +51,16 @@
 $app{'VLC'} = "VLC";
 $app{'ffmpeg'} = "ffmpeg";
 $app{'convert'} = "convert";
-open(CONFIG,"dotastro.config");
-@lines = <CONFIG>;
-close(CONFIG);
-foreach $line (@lines){
-	if($line =~ /^VLC[\t\s]+([^\n\r]*)/){ $app{'VLC'} = $1; }
-	if($line =~ /^ffmpeg[\t\s]+([^\n\r]*)/){ $app{'ffmpeg'} = $1; }
-	if($line =~ /^convert[\t\s]+([^\n\r]*)/){ $app{'convert'} = $1; }
+if(-e "dotastro.config"){
+	open(CONFIG,"dotastro.config");
+	@lines = <CONFIG>;
+	close(CONFIG);
+	foreach $line (@lines){
+		if($line =~ /^VLC[\t\s]+([^\n\r]*)/){ $app{'VLC'} = $1; }
+		if($line =~ /^ffmpeg[\t\s]+([^\n\r]*)/){ $app{'ffmpeg'} = $1; }
+		if($line =~ /^convert[\t\s]+([^\n\r]*)/){ $app{'convert'} = $1; }
+	}
 }
-
 
 
 # Useful command line examples
