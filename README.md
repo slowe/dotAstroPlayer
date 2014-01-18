@@ -26,7 +26,7 @@ To make a talk ready for the web:
 1. If there is a demo in the talk that needs video, you can extract that part from the main video. This extracted part is saved to the source directory as `extracted.mp4`. If you need to extract multiple parts you'll want to rename them between each extraction.
     
         perl webify.pl -extractvideo=mytalk/source/mytalk.mov -start=19:53 -end=36:48
-1. At this stage I've already created a setup.txt file but for other talks you can create a placeholder:
+1. You will now need to create a `setup.txt` file which will be used to generate the final talk. If you haven't already got this you can generate one to work from:
     
         perl webify.pl mytalk/ -source=mytalk/source/ -setup
 1. Edit the `mytalk/setup.txt` file so that the meta data is correct and the times for the slides are correct. This is the step that requires the majority of the human input as you'll need to work out the timings.
