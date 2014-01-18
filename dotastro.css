@@ -1,0 +1,145 @@
+.avatar { float: left; }
+.avatar img { width: 40px; margin-right: 10px; }
+
+#talk { }
+/* Reset some Wordpress styles */
+#talk #messages p { margin: 0px; }
+#talk #messages .bubble-inner, #talk #messages p { text-align: center!important; }
+
+
+/* Set the "blue" styling */
+.ui-slider .ui-slider-handle, .download, #slides:hover .mainplay, .controls .play:hover, .controls .volume:hover, .controls .mute:hover, .controls .bandwidth:hover, .controls .fullscreen:hover, .bw.selected, .bw:hover { background: #474ff7; }
+
+#talk a img:hover { opacity: 1; filter: alpha(opacity=100); }
+.bw { cursor: pointer; display: inline-block; padding: 4px 8px; margin: 0 5px 15px 0; font-size: 1.2em; color:#fff; text-shadow:none; background:#c2c2c2; border-radius:3px; }
+.bwset { display: inline-block; }
+.download { position: relative; display: inline-block; padding: 0px; text-shadow: none; line-height: 32px; min-height: 32px; padding: 0 8px 0 0; }
+.download ul { margin: 0px; display: inline-block; }
+.download ul li { margin: 0px; padding: 0px; line-height: 32px; background-image: none; display: inline-block; }
+.download .download-inner { height: 32px; float: left; color: white; cursor: pointer; }
+.download .downloadbtn { width: 32px; height: 32px; float: left; }
+.download ul.sub-menu {
+	background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 4px 0 rgba(0, 0, 0, 0.05) inset;
+    font-weight: normal;
+    left: 0px;
+    padding: 15px;
+    position: absolute;
+    top: 32px;
+    z-index: 999;
+}
+.download ul.sub-menu li { width: 100%; border-bottom: 1px solid #E9E9E9; }
+.download ul.sub-menu li:last-child { border: 0px; }
+.download ul.sub-menu.inactive a { color: white; }
+.download ul.sub-menu.inactive {
+	background-color: transparent;
+	color: white;
+	position: relative;
+	display: inline-block;
+	box-shadow: none;
+	top: 0px;
+	padding: 0px 0px 0px 8px;
+	margin-left: 8px;
+}
+.download ul.sub-menu.inactive li {	margin-right: 8px; }
+
+ul.other-speakers { margin: 0px!important; }
+ul.other-speakers li img { width: 100%; }
+
+#talk.pres .slide-holder.fullwidth { width: 100%!important; }
+#slides ul { list-style: none; margin: 0px!important; padding: 0px; }
+#slides ul li { height: auto; }
+#slides li { margin-bottom: 20px; padding: 0px; background-image: none; }
+#slides.slides-active .slide { z-index: 1; width: 100%; }
+#slides.slides-active .slide a img { display: block; }
+#slides.slides-active .slide img { width: 100%; }
+#slides.slides-inactive .timestamp { margin-bottom: 1em; }
+#slides.slides-inactive .slide .pic img { width: 100%; margin-bottom: 0px; }
+#slides.fullscreen { width:100%!important; height:100%!important; }
+#slides.fullscreen .slide { height: 100%; display: block; }
+#slides.fullscreen .slide .pic { height: 100%; }
+#slides.fullscreen .slide a.big_slide img, #slides.fullscreen .slide video { width: auto; margin:auto; height: 100%; }
+#talk.pres #slides.slides-active { background-color: black; height: auto; position: relative; }
+#talk.pres #slides ul { list-style: none; margin: 0px; padding: 0px; }
+#talk.pres #slides li { margin-bottom: 0px; list-style: none; }
+#talk.pres .endoftalk { display: none; }
+#talk.pres .overlay-splash { display: table-cell; vertical-align: middle; position: absolute; left: 0px; top: 0px; z-index: 100; }
+#talk.pres .overlay-controls { display: inline-block; position: absolute; bottom: 0px; z-index: 99; }
+#talk.pres #slides h3, #talk.pres #messages h3 { margin: 0px; line-height: 1em; }
+
+.play, #slides .mainplay { cursor: pointer; background-color: rgba(0,0,0,0.6); }
+#slides .mainplay, #slides .mainplay img { transition-property: background-color, opacity; transition-duration: 1s; -moz-transition-property: background-color, opacity; -moz-transition-duration: 1s; -o-transition-property: background-color, opacity; -o-transition-duration: 1s; -webkit-transition-property: background-color, opacity; -webkit-transition-duration: 1s; }
+#slides .mainplay { border: 1px solid #d1d1d1; border-left: 0px; margin-top: 200px; display: inline-block; }
+#slides:hover .mainplay img { opacity: 1; cursor: pointer; }
+#slides .mainplay img { opacity: 0.7; border-left: 0px; display: block; margin: 0px; padding: 0px; line-height: 0px; }
+.controls { position: absolute; bottom: 0px; left: 0px; width: 100%; }
+.controls .play { float: left; margin: 0px; width: 65px; height: 65px; }
+.controls .play img { margin: 0px; height: 65px; }
+.controls_right { float: right; width: 100%; height: 65px; background-color: rgba(0,0,0,0.6); }
+.controls_row { height: 32px; margin: 0 4px; }
+.controls .volume, .controls .bandwidth, .controls .fullscreen, .controls .clock, .controls .mute { display: inline-block; }
+.controls .progress { width: 100%; height: 28px; display: inline-block; }
+.controls .progress_outer { margin: 8px 10px; }
+.controls .progress_inner { background: rgba(255,255,255,0.8); padding: 0 8px; }
+.ui-slider { position: relative; text-align: left; height: 12px; }
+.ui-slider .ui-slider-handle { margin-left: -8px; height: 12px; position: absolute; width: 16px; z-index: 2; }
+.controls .fullscreen { width: 32px; height: 32px; }
+.controls .clock { max-width: 96px; height: 32px; line-height: 16px; position: absolute; top: 0px; margin: 8px; text-shadow: none; color: rgba(255,255,255,0.8); }
+.controls .mute { width: 32px; height: 32px; }
+.controls .volume { width: 32px; height: 32px; }
+.controls .bandwidth { width: 32px; height: 32px; display: none; }
+.controls .bandwidth.selected { display: inline-block; }
+.controls .play:hover, .controls .volume:hover, .controls .mute:hover, .controls .bandwidth:hover, .controls .fullscreen:hover { cursor: pointer; }
+
+#audio,#credits { clear: both; }
+video { margin: 0px; display: block; }
+
+#audio, #credits { margin-top: 8px; }
+#credits ul { margin: 0px; }
+#credits ul li { display: inline-block; margin-right: 15px; }
+
+#messages { clear: both; max-width: 100%; margin-left: 0px; margin-top: 20px; }
+#messages h3 { line-height: 40px; margin-left: 0px; }
+#messages ul { list-style: none; }
+#messages ul li { position: relative; margin: 0px; border-bottom: 1px solid #D3D3D3; clear: both; padding: 8px 0px; background-image: none; }
+#messages .timestamp { font-weight: bold; display: inline-block; margin-right: 0.1em; }
+#messages .timestamp time { display: inline-block; }
+#messages .tweet { overflow: hidden; }
+#messages .tweet .bubble { float: left; margin-right: 40px; }
+#messages .tweet .bubble p { margin: 0px; }
+#messages .tweet .tweeter { position: absolute; top: 0px; right: 0px; }
+#messages .profile_image { display: block; width: 38px; }
+#messages .profile_image img { width: 38px; }
+
+#talk.pres #messages { display: inline-block; margin-top: 0px; }
+#talk.pres #messages h3 { line-height: 1em; margin-left: 10px;}
+#talk.pres #messages ul { margin: 10px 0 0 0; height: 496px; overflow: auto; }
+#talk.pres #messages ul li { border: 0px; margin-left: 10px;background: none; padding: 0px; margin-bottom: 10px; margin-right: 5px; position:relative; display: block; }
+#talk.pres #messages .tweeter { position: relative; margin: 0px 0px; display: block; text-align: center; height: 38px; }
+#talk.pres #messages .tweeter .profile_image { display: inline-block; width: 100%; height: 38px; }
+#talk.pres #messages .tweeter .profile_image a {  }
+#talk.pres #messages .timestamp { display: inline-block; }
+#talk.pres #messages .timestamp:after { content: ":" }
+#talk.pres #messages .bubble { text-align: center; float: none; margin-right: 0px; display: block; padding:0px; filter:alpha(opacity=80); background-repeat:no-repeat;white-space:nowrap; margin-bottom: 10px; }
+#talk.pres #messages .bubble-inner { min-height:1em;padding:8px;background-color: #E9E9E9; text-align:center; border-radius:4px;white-space:normal; overflow: hidden; }
+#talk.pres #messages .bubble:before {content:"";display:block;width:0;height:0;border:10px solid #E9E9E9;position:absolute;}
+#talk.pres #messages .bubble-north:before {left:50%;bottom:28px;margin-left:-10px;border-color:#E9E9E9 transparent transparent;}
+#talk.pres #messages .bubble-east .bubble-inner { background-color: #d9daf7!important; }
+#talk.pres #messages .bubble-east:before {top:50%;left:-20px;margin-top:-10px;border-color:transparent #d9daf7 transparent transparent;}
+#talk.pres #messages .ieold .bubble-north:before {_border-top-color: pink,_border-right-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
+#talk.pres #messages .ieold .bubble-east:before {_border-top-color: pink,_border-bottom-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
+
+
+@media only screen and (max-width: 959px){
+	#slides { max-width: 100%!important; }
+	#talk.pres .slide-holder { width: 100%!important; }
+	#talk.pres .message-holder { width: 100%; }
+	#talk.pres #slides { width: 100%; max-width: 100%!important; max-height: 100%; height: auto; display: block; }
+	#talk.pres #messages { display: block; margin-left: 0px; width: 100%; }
+	#talk.pres video { max-width: 100%; }
+	#talk.pres #messages h3 { margin-left: 0px; line-height: 40px; }
+	#talk.pres #messages ul { margin-left: 0px; height: auto; }
+	#talk.pres #messages ul li { margin: 0px; }
+	ul.other-speakers li { height: auto; margin-bottom: 20px; }
+	ul.other-speakers li img { max-width: 100%; }
+}
