@@ -7,6 +7,7 @@ Examples
 ========
 
 Some examples of the player being used for [.Astronomy 4](http://dotastronomy.com/events/four/) talks:
+
 1. [Astronomy for a Better World (Kevin Govender)](http://dotastronomy.com/events/four/astronomy-for-a-better-world-kevin-govender/)
 1. [How to be a Data Visualization Star (Julie Steele and Noah Iliinsky)](http://dotastronomy.com/events/four/how-to-be-a-data-visualization-star-julie-steele-and-noah-iliinsky/)
 1. [Mechanical Turk and Glue (Michelle Borkin)](http://dotastronomy.com/events/four/mechanical-turk-and-glue-michelle-borkin/)
