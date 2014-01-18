@@ -1,7 +1,7 @@
 dotAstroPlayer
 ==============
 
-An interface to .Astronomy conference talks - displays slides, audio, video clips as well as synced tweets and notes.
+An interface to .Astronomy conference talks - displays slides, audio, video clips (if needed) as well as synced tweets and notes. The basic philosophy is to keep the bandwidth requirements low to make it usable on things like 3G connections. It uses progressive enhancement so people without Javascript see thumbnails of all the slides, all the timestamped tweets and messages, and can download the audio.
 
 Examples
 ========
@@ -15,7 +15,7 @@ Some examples of the player being used for [.Astronomy 4](http://dotastronomy.co
 1. [Astro Crowdsourcing (Thomas Kitching)](http://dotastronomy.com/events/four/astro-crowdsourcing-thomas-kitching/)
 1. [Astronomy Dataverse (August Muench)](http://dotastronomy.com/events/four/astronomy-dataverse-august-muench/)
 1. [Javascript for Astronomy (Amit Kapadia)](http://dotastronomy.com/events/four/javascript-for-astronomy-amit-kapadia/)
-
+1. [AstroBetter (Kelle Cruz)](http://dotastronomy.com/events/four/astrobetter-kelle-cruz/)
 
 
 Recipe
