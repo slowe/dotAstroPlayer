@@ -25,7 +25,7 @@ To make a talk ready for the web:
         perl webify.pl -extractaudio=mytalk/source/mytalk.mov
 1. If there is a demo in the talk that needs video, you can extract that part from the main video. This extracted part is saved to the source directory as `extracted.mp4`. If you need to extract multiple parts you'll want to rename them between each extraction.
     
-        perl webify.pl -extractvideo=mytalk-source/mytalk.mov -start=19:53 -end=36:48
+        perl webify.pl -extractvideo=mytalk/source/mytalk.mov -start=19:53 -end=36:48
 1. At this stage I've already created a setup.txt file but for other talks you can create a placeholder:
     
         perl webify.pl mytalk/ -source=mytalk/source/ -setup
