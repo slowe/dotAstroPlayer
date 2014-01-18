@@ -48,28 +48,36 @@
 
 
 # Define locations of helper apps
-$app{'VLC'} = "/Applications/VLC.app/Contents/MacOS/VLC";
-$app{'ffmpeg'} = "/Users/stuartlowe/ffmpeg/ffmpeg/ffmpeg";
+$app{'VLC'} = "VLC";
+$app{'ffmpeg'} = "ffmpeg";
 $app{'convert'} = "convert";
+open(CONFIG,"dotastro.config");
+@lines = <CONFIG>;
+close(CONFIG);
+foreach $line (@lines){
+	if($line =~ /^VLC[\t\s]+([^\n\r]*)/){ $app{'VLC'} = $1; }
+	if($line =~ /^ffmpeg[\t\s]+([^\n\r]*)/){ $app{'ffmpeg'} = $1; }
+	if($line =~ /^convert[\t\s]+([^\n\r]*)/){ $app{'convert'} = $1; }
+}
 
 
 
 # Useful command line examples
 # Extract segment of MOV to mp4
 # -ss is start time, -t is the duration
-# /Users/stuartlowe/ffmpeg/ffmpeg/ffmpeg -y -i MVI_3864.MOV -r 30000/1001 -b 5M -bt 6M -vcodec mpeg4 -ss 424 -t 192 -an output.mp4
+# ffmpeg -y -i MVI_3864.MOV -r 30000/1001 -b 5M -bt 6M -vcodec mpeg4 -ss 424 -t 192 -an output.mp4
 #
 # Convert to WebM (cropped)
 # /Applications/VLC.app/Contents/MacOS/VLC --intf=rc --stop-time=62 output.mp4 --sout "#transcode{vcodec=VP80,vb=500,acodec=vorbis,ab=48,channels=2,afilter="no-audio",vfilter=croppadd{cropright=100,cropleft=100,cropbottom=4},width=800}:std{access=file,mux="ffmpeg{mux=webm}",dst=movie.webm}"
 # Convert to MP4 (cropped)
-# /Users/stuartlowe/ffmpeg/ffmpeg/ffmpeg -i output.mp4 -b 500k -vf crop=in_w-512:in_h:256:0,scale=600:-1 movie.mp4
+# ffmpeg -i output.mp4 -b 500k -vf crop=in_w-512:in_h:256:0,scale=600:-1 movie.mp4
 #
 # MOV -> Wav
-# /Users/stuartlowe/ffmpeg/ffmpeg/ffmpeg -i MVI_4139.MOV mvi_4139.wav
+# ffmpeg -i MVI_4139.MOV mvi_4139.wav
 # Wav -> Low bandwidth OGG
-# /Applications/VLC.app/Contents/MacOS/VLC --intf=rc alyssa.wav --sout "#transcode{acodec=vorb,ab=16,samplerate=11025}:standard{mux=ogg,dst=/Users/stuartlowe/Projects/dotastronomy/talks/goodman/source/alyssatest2.ogg,access=file}" vlc://quit
+# /Applications/VLC.app/Contents/MacOS/VLC --intf=rc alyssa.wav --sout "#transcode{acodec=vorb,ab=16,samplerate=11025}:standard{mux=ogg,dst=alyssatest2.ogg,access=file}" vlc://quit
 # Wav -> Low bandwidth MP3
-# /Applications/VLC.app/Contents/MacOS/VLC --intf=rc alyssa.wav --sout "#transcode{acodec=mp3,ab=16,channels=2,samplerate=22050}:standard{mux=raw,dst=/Users/stuartlowe/Projects/dotastronomy/talks/goodman/source/alyssatest2.mp3,access=file}" vlc://quit
+# /Applications/VLC.app/Contents/MacOS/VLC --intf=rc alyssa.wav --sout "#transcode{acodec=mp3,ab=16,channels=2,samplerate=22050}:standard{mux=raw,dst=alyssatest2.mp3,access=file}" vlc://quit
 
 
 use Time::Local;
@@ -355,9 +363,9 @@ if($flag{'makeaudio'} == 1){
 			print "done\n";
 		}
 	}	
-# $app{'VLC'} --intf=rc alyssa.wav --sout "#transcode{acodec=vorb,ab=16,samplerate=11025}:standard{mux=ogg,dst=/Users/stuartlowe/Projects/dotastronomy/talks/goodman/source/alyssatest2.ogg,access=file}" vlc://quit
+# $app{'VLC'} --intf=rc alyssa.wav --sout "#transcode{acodec=vorb,ab=16,samplerate=11025}:standard{mux=ogg,dst=alyssatest2.ogg,access=file}" vlc://quit
 # Wav -> Low bandwidth MP3
-# $app{'VLC'} --intf=rc alyssa.wav --sout "#transcode{acodec=mp3,ab=16,channels=2,samplerate=22050}:standard{mux=raw,dst=/Users/stuartlowe/Projects/dotastronomy/talks/goodman/source/alyssatest2.mp3,access=file}" vlc://quit
+# $app{'VLC'} --intf=rc alyssa.wav --sout "#transcode{acodec=mp3,ab=16,channels=2,samplerate=22050}:standard{mux=raw,dst=alyssatest2.mp3,access=file}" vlc://quit
 
 }
 
@@ -411,7 +419,7 @@ if($flag{'makevideo'} == 1){
 }
 
 $tstart = parse_datetime($talkstart);
-$tzoffset = 0;#-5;
+$tzoffset = 0;
 
 open(TMPL,"template.html");
 @lines = <TMPL>;
