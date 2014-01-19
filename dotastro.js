@@ -235,6 +235,9 @@
 			e.data.me.tweetsinsync = true;
 		});
 	
+		// Check for failure to load Twitter profile images
+		if($('.profile_image img').length > 0) imageLoadError('.profile_image img');
+
 		// If the user has put focus on a textarea/input field we shouldn't do anything with their key presses
 		$('textarea, input').bind('focus',{me:this},function(e){ e.data.me.allowkeyboard = false; }).bind('blur',{me:this},function(e){ e.data.me.allowkeyboard = true; });
 
@@ -633,7 +636,19 @@
 			this.skipTo(this.slides[this.slide+1]);
 		}
 	}
+
+	function imageLoadError(el){
+		$(el).each(function(){
+				// Work	around for error function reporting of file load failure
+				this.src = this.src;
+				$(this).bind('error',function() {
+					$(this).replaceWith('@'+this.title);
+					return true;
+				})
+		});
+	}
 	
+
 	function supports_video() {
 		return !!document.createElement('video').canPlayType;
 	}
