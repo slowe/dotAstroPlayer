@@ -201,7 +201,7 @@ if(!-e $flag{'setup'} || (-e $flag{'setup'} && $flag{'overwrite'})){
 	print FILE "# each slide or message gets a line of the form: \"time	type	content\"\n";
 	for($i = 0; $ i < (@files) ; $i++){
 		$fm = "%s";
-		if($i==0){ $fm = "$-35s"; }
+		if($i==0){ $fm = "\%-35s"; }
 		print FILE "00:".sprintf("%02d",$i)."	slide	".sprintf($fm,$files[$i])."\n";
 	}
 	print FILE "15:00	end\n";
