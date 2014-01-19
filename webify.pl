@@ -187,8 +187,8 @@ if(!-e $flag{'setup'} || (-e $flag{'setup'} && $flag{'overwrite'})){
 	print FILE "Audio: extracted.wav                                # the wav file for the audio\n";
 	print FILE "Picture: http://www.dotastronomy.com/img/pics/.png  # the avatar image for the speaker\n";
 	print FILE "Photographer:                                       # the credit for whoever took the cover image\n";
-	print FILE "Date: Wednesday 11 July 10:03                       # the date displayed on the HTML page\n";
-	print FILE "Start: Wed Jul 11 08:03:15 +0000 2012               # start time for the talk - used to sync up tweets\n";
+	print FILE "Date: Monday 16 September 10:00                     # the date displayed on the HTML page\n";
+	print FILE "Start: Mon Sep 16 13:03:15 -0500 2013               # start time for the talk - used to sync up tweets\n";
 	print FILE "More: cruz,borkin,goodman,govender                  # comma separated list of directory names for the 'more' talks section of the page\n";
 	print FILE "Width: 1024                                         # width of output slides in pixels\n";
 	print FILE "Height: 768                                         # height of output slides in pixels\n";
