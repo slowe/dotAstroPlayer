@@ -524,34 +524,41 @@ foreach $tweet (@tweets){
 	}
 }
 
+
 foreach $tweet (@tweets){
-	$tweet =~ s/\\\"/&quot;/g;
-	$tweet =~ s/\\u201[cd]/&quot;/g;
-	$tweet =~ s/\\u2026/\&#8230;/g;
-	if($tweet =~ /\"name\":\"([^\"]*)"/){ $name = $1; }
-	if($tweet =~ /\"screen_name\":\"([^\"]*)"/){ $screen_name = $1; }
-	if($tweet =~ /\"screen_name\":\"[^\"]*"},"id":(\d+),/){ $statusid = $1; }
-	if($tweet =~ /\"profile_image_url\":\"([^\"]*)"/){ $profile_image_url = $1; $profile_image_url =~ s/\\//g; }
-	$text = "";
-	if($tweet =~ /\"text\":\"([^\"]+)\"/){
-		$text = $1;
-	}
-	if($text =~ /^RT/ && $tweet =~ /\"retweeted_status\"[^\}]+\"text\":\"([^\"]*)\"/){
-		$text = $1;
-	}
-	if($text){
-		$text =~ s/RT \@$name//g;
-		$text =~ s/\\\//\//g;
-		$text =~ s/(https?:\/\/[^\s]*)/$expander{$1}/g;
-		$text =~ s/(https?:\/\/)([^\s]*)/\<a href='$1$2'\>$2\<\/a\>/g;
-		$text =~ s/\@([a-zA-Z0-9\_]*)/\@\<a href='http:\/\/twitter.com\/$1'\>$1\<\/a\>/g;
-	}
-	if($tweet =~ /\"created_at\":\"([^\"]*)"/){ $created_at = parse_datetime($1); }
-	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($created_at+$tzoffset*3600);
-	$diff = $created_at-$tstart;
-	if($diff > 0){
-		$timestamp = format_times($hour,$min,$sec);
-		$messages{$timestamp."_tweet"} = "<div class=\"bubble bubble-north\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"".format_timestamp($diff)."\"><time>$timestamp<\/time><\/div> $text</div></div><div class=\"tweeter\"><div class=\"profile_image\"><a href=\"http://twitter.com/$screen_name/statuses/$statusid\"><img src=\"".$profile_image_url."\" alt=\"$screen_name\" title=\"$screen_name\" \/></a></div></div>";
+	$tweet =~ s/[\n\r]//g;
+	if($tweet){
+		$tweet =~ s/\\\"/&quot;/g;
+		$tweet =~ s/\\\\/\//g;
+		$tweet =~ s/\\u201[cd]/&quot;/g;
+		$tweet =~ s/\\u2026/\&#8230;/g;
+		
+		if($tweet =~ /\"name\":\"([^\"]*)"/){ $name = $1; }
+		if($tweet =~ /\"screen_name\":\"([^\"]*)"/){ $screen_name = $1; }
+		if($tweet =~ /"id":(\d+),/){ $statusid = $1; }
+		if($tweet =~ /\"profile_image_url\":\"([^\"]*)\"\,/){ $profile_image_url = $1; $profile_image_url =~ s/\\//g; }
+		$text = "";
+		if($tweet =~ /\"text\":\"([^\"]+)\"/){
+			$text = $1;
+		}
+		if($text =~ /^RT/ && $tweet =~ /\"retweeted_status\"[^\}]+\"text\":\"([^\"]*)\"/){
+			$text = $1;
+		}
+		if($text){
+			$text =~ s/RT \@$name//g;
+			$text =~ s/\\\//\//g;
+			$text =~ s/\\\"/\"/g;
+			$text =~ s/(https?:\/\/[^\s]*)/$expander{$1}/g;
+			$text =~ s/(https?:\/\/)([^\s]*)/\<a href='$1$2'\>$2\<\/a\>/g;
+			$text =~ s/\@([a-zA-Z0-9\_]*)/\@\<a href='http:\/\/twitter.com\/$1'\>$1\<\/a\>/g;
+		}
+		if($tweet =~ /\"created_at\":\"([^\"]*)"/){ $created_at = parse_datetime($1); }
+		($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($created_at+$tzoffset*3600);
+		$diff = $created_at-$tstart;
+		if($diff > 0){
+			$timestamp = format_times($hour,$min,$sec);
+			$messages{$timestamp."_tweet"} = "<div class=\"bubble bubble-north\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"".format_timestamp($diff)."\"><time>$timestamp<\/time><\/div> ".$text."</div></div><div class=\"tweeter\"><div class=\"profile_image\"><a href=\"http://twitter.com/$screen_name/statuses/$statusid\"><img src=\"".$profile_image_url."\" alt=\"$screen_name\" title=\"$screen_name\" \/></a></div></div>";
+		}
 	}
 }
 
@@ -562,7 +569,7 @@ if($n > 0){
 	foreach $key (sort keys %messages){
 		($ts,$t) = split(/\_/,$key);
 		$messages .= "							<li class=\"$t\">$messages{$key}</li>\n";
-	}	
+	}
 	$messages .= "\t\t\t\t\t\t</ul>";
 }
 
