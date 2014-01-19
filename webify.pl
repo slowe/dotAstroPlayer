@@ -187,6 +187,7 @@ if(!-e $flag{'setup'} || (-e $flag{'setup'} && $flag{'overwrite'})){
 	print FILE "Audio: extracted.wav                                # the wav file for the audio\n";
 	print FILE "Picture: http://www.dotastronomy.com/img/pics/.png  # the avatar image for the speaker\n";
 	print FILE "Photographer:                                       # the credit for whoever took the cover image\n";
+	print FILE "Curator:                                            # the credit for whoever took the cover image\n";
 	print FILE "Date: Wednesday 11 July 10:03                       # the date displayed on the HTML page\n";
 	print FILE "Start: Wed Jul 11 08:03:15 +0000 2012               # start time for the talk - used to sync up tweets\n";
 	print FILE "More: cruz,borkin,goodman,govender                  # comma separated list of directory names for the 'more' talks section of the page\n";
@@ -256,6 +257,8 @@ foreach $line (@lines){
 		$youtube = $1;
 	}elsif($line =~ /Vimeo: (.*)$/){
 		$vimeo = $1;
+	}elsif($line =~ /Curator: (.*)$/){
+		$curator = $1;
 	}elsif($line =~ /Photographer: (.*)$/){
 		$photographer = $1;
 	}elsif($line =~ /Fullname: (.*)$/){
@@ -551,7 +554,7 @@ foreach $tweet (@tweets){
 	$diff = $created_at-$tstart;
 	if($diff > 0){
 		$timestamp = format_times($hour,$min,$sec);
-		$messages{$timestamp."_tweet"} = "<div class=\"bubble bubble-north\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"".format_timestamp($diff)."\"><time>$timestamp<\/time><\/div> $text</div></div><div class=\"tweeter\"><div class=\"profile_image\"><a href=\"http://twitter.com/$screen_name/statuses/$statusid\"><img src=\"".$profile_image_url."\" alt=\"$screen_name\" title=\"$screen_name\" \/></a></div></div>";
+		$messages{$timestamp."_tweet"} = "<div class=\"bubble bubble-north\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"".format_timestamp($diff)."\"><time>$timestamp<\/time><\/div> $text</div></div><div class=\"tweeter\"><div class=\"profile_image\">@<a href=\"http://twitter.com/$screen_name/statuses/$statusid\">$screen_name</a></div></div>";
 	}
 }
 
@@ -598,6 +601,7 @@ foreach $line (@lines){
 	$line =~ s/\{\% PICTURE \%\}/$pic/g;
 	$line =~ s/\{\% VIDEOLINKS \%\}/$videolinks/g;
 	$line =~ s/\{\% PHOTOGRAPHER \%\}/$photographer/g;
+	$line =~ s/\{\% CURATOR \%\}/$curator/g;
 	$line =~ s/\{\% FULLNAME \%\}/$fullname/g;
 	$line =~ s/\{\% DATE \%\}/$date/g;
 	$line =~ s/\{\% TOTAL \%\}/$end/g;
