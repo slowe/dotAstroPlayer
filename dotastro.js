@@ -10,7 +10,7 @@
 	
 	// Elements with the class "accessible" are intended for people who don't 
 	// have Javascript enabled. If we are here they obviously do have Javascript.
-	if(buzz.isOGGSupported() || buzz.isMP3Supported()) document.write('<style type="text/css"> .slide, #slides h3, #slides .timestamp, #audio h3, #credits h3 { display: none; height: 0px; }</style>');
+	if(buzz.isOGGSupported() || buzz.isMP3Supported()) document.write('<style type="text/css"> .slide, .slides h3, .slides .timestamp, .audio h3, .credits h3 { display: none; height: 0px; } .slides li:first-child { display: inline-block; }</style>');
 	
 	// jQuery UI for the time slider
 	/*! jQuery UI - v1.8.21 - 2012-06-05
@@ -95,22 +95,26 @@
 		});
 	});
 	
-	// Get the base URL of this script - we'll use this for loading
-	var scripts = document.getElementsByTagName('script');
-	var src = scripts[scripts.length - 1];
-	if (src.getAttribute.length !== undefined) src = src.src
-	else src = src.getAttribute('src', -1);
-	src = src.substring(0,src.lastIndexOf('/')+1);
 	
 	// Main function
 	function dotastro(inp){
 	
-		this.basedir = src;
+		if(inp && typeof inp.el==="object") this.el = inp.el;
+		else return {};
+
+		// Get the base URL of this script - we'll use this for loading
 	
-		src = $('.download a').attr('href');
+		// Identify the default base directory
+		this.basedir = $('script[src*="dotastro.js"]').attr('src');  // the JS file path
+		var idx = this.basedir.lastIndexOf('/');
+		if(idx >= 0) this.basedir = this.basedir.substring(0,idx+1);
+		else this.basedir = "";
+
+		var src = this.el.find('.download a').attr('href');
 		src = src.substring(0,src.lastIndexOf('.'));
 		this.file = (inp && typeof inp.sound==="string") ? inp.sound : src;
-	
+		this.multiple = (inp && typeof inp.multiple==="boolean") ? inp.multiple : false;
+		
 		this.sound = new buzz.sound( this.file+"_low", { formats: [ "ogg", "mp3" ], preload: false });
 		this.soundalt = new buzz.sound( this.file, { formats: [ "ogg", "mp3" ], preload: false });
 		this.bw = "low";
@@ -132,6 +136,9 @@
 	
 		// Are we in fullscreen mode?
 		this.fullscreen = false;
+		
+		// Is the mouse on the talk
+		this.mouseover = false;
 	
 		// When did the mouse last move?
 		this.lastmove = new Date();
@@ -151,75 +158,87 @@
 	
 		// Initial DOM setup
 	
-		$('#talk').addClass('pres');
+		this.el.addClass('pres');
 	
 		var _obj = this;
-		$('.slide').each(function(i){
+		this.el.find('.slide').each(function(i){
 			if(i == 0) $(this).show();
-			_obj.slides.push(buzz.fromTimer($('.slide:eq('+i+')').find('time').text()));
+			_obj.slides.push(buzz.fromTimer(_obj.el.find('.slide:eq('+i+')').find('time').text()));
 		});
-		$('.slide').removeClass('one-fourth');
-	
-		$('#slides').disableTextSelect().prepend('<div class="overlay-splash"><div class="mainplay"><img src="'+this.basedir+'play.png" /></div></div><div class="overlay-controls"><div class="controls"><div class="controls_inner"><div class="play"><img src="'+this.basedir+'play.png" class="playing" title="Click to play" /><img src="'+this.basedir+'pause.png" class="paused" title="Click to pause" /></div><div class="controls_right"><div class="controls_row"><div class="volume"><img src="'+this.basedir+'volume.png" title="Click to mute" /></div><div class="mute"><img src="'+this.basedir+'mute.png" title="Click to unmute" /></div><div id="low_bw" class="bandwidth"><img src="'+this.basedir+'sd.png" title="Low bandwidth audio - click to change" /></div><div id="high_bw" class="bandwidth"><img src="'+this.basedir+'hd.png" title="High bandwidth audio - click to change" /></div>'+(fullScreenApi.supportsFullScreen ? '<div class="fullscreen"><img src="'+this.basedir+'fullscreen.png" title="Click to toggle fullscreen" /></div>' : '')+'<div class=\"clock\">00:00</div></div><div class="progress"><div class="progress_outer"><div class="progress_inner"><div id="progress_bar"></div></div></div></div></div></div></div></div>').bind('mousemove',{me:this},function(e){
+		this.el.find('.slide').removeClass('one-fourth');
+
+		this.el_slides = this.el.find('.slide-holder').children().eq(0);
+		this.el_slides.disableTextSelect().prepend('<div class="overlay-splash"><div class="mainplay"><img src="'+this.basedir+'play.png" /></div></div><div class="overlay-controls"><div class="controls"><div class="controls_inner"><div class="play"><img src="'+this.basedir+'play.png" class="playing" title="Click to play" /><img src="'+this.basedir+'pause.png" class="paused" title="Click to pause" /></div><div class="controls_right"><div class="controls_row"><div class="volume"><img src="'+this.basedir+'volume.png" title="Click to mute" /></div><div class="mute"><img src="'+this.basedir+'mute.png" title="Click to unmute" /></div><div class="low_bw bandwidth"><img src="'+this.basedir+'sd.png" title="Low bandwidth audio - click to change" /></div><div class="high_bw bandwidth"><img src="'+this.basedir+'hd.png" title="High bandwidth audio - click to change" /></div>'+(fullScreenApi.supportsFullScreen ? '<div class="fullscreen"><img src="'+this.basedir+'fullscreen.png" title="Click to toggle fullscreen" /></div>' : '')+'<div class=\"clock\">00:00</div></div><div class="progress"><div class="progress_outer"><div class="progress_inner"><div class="progress_bar"></div></div></div></div></div></div></div></div>').bind('mousemove',{me:this},function(e){
 			e.data.me.lastmove = new Date();
 		}).addClass('slides-active').removeClass('slides-inactive');
 	
-		$('.download-inner').bind('click',{me:this},function(e){
+		this.el.find('.download-inner').bind('click',{me:this},function(e){
 			$(this).parent().find('ul').slideToggle("fast");
 		}).parent().find('ul').removeClass('inactive').hide();
 		
-		$('#slides ul').removeClass('speakers').bind('click',{me:this},function(e){
+		this.el_slides.find('ul').removeClass('speakers').bind('click',{me:this},function(e){
 			e.preventDefault();
 			e.data.me.toggleControls();
 		});
 	
-		$('.controls').disableTextSelect().hide();
-		$('.paused').hide();
+		this.el.find('.controls').disableTextSelect().hide();
+		this.el.find('.paused').hide();
 	
-		this.total = buzz.fromTimer($('.total').text())
+		this.total = buzz.fromTimer(this.el.find('.total').text())
 	
 		// Bind resize event
 		$(window).resize({me:this},function(e){ e.data.me.sizeOverlay(); });
-	
-		$('.mainplay').bind('click',{me:this},function(e){
+
+		// Bind mouse enter and out events to this talk
+		this.el.on('mousemove',{player:this},function(e){
+			e.data.player.mouseover = true;
+		}).on('mouseleave',{player:this},function(e){
+			e.data.player.mouseover = false;
+		}).on('mouseenter',{player:this},function(e){
+			e.data.player.mouseover = true;
+		})
+
+		this.el_slides.css({'min-height':this.el_slides.height()})
+
+		this.el.find('.mainplay').bind('click',{me:this},function(e){
 			e.data.me.togglePlay();
 		});
 	
-		$('.play').bind('click',{me:this},function(e){
+		this.el.find('.play').bind('click',{me:this},function(e){
 			e.preventDefault();
 			e.data.me.togglePlay();
 		});
 	
-		$('.slide').bind('click',{me:this},function(e){
+		this.el.find('.slide').bind('click',{me:this},function(e){
 			e.preventDefault();
 		});
 	
-		$('.volume').bind('click',{me:this},function(e){
+		this.el.find('.volume').bind('click',{me:this},function(e){
 			e.preventDefault();
 			e.data.me.sound.mute();
 			$(this).hide();
-			$('.mute').show();
+			e.data.me.el.find('.mute').show();
 		})
 	
-		$('.mute').bind('click',{me:this},function(e){
+		this.el.find('.mute').bind('click',{me:this},function(e){
 			e.preventDefault();
 			e.data.me.sound.unmute();
 			$(this).hide();
-			$('.volume').show();
+			e.data.me.find('.volume').show();
 		}).hide();
 	
 		// Bind fullscreen event
 		if(fullScreenApi.supportsFullScreen){
 			// Bind the fullscreen function to the double-click event if the browser supports fullscreen
-			$('.fullscreen').bind('click', {me:this}, function(e){
+			this.el.find('.fullscreen').bind('click', {me:this}, function(e){
 				e.data.me.toggleFullScreen();
 			});
-			$('#slides li.slide').bind('dblclick', {me:this}, function(e){
+			this.el_slides.find('li.slide').bind('dblclick', {me:this}, function(e){
 				e.data.me.toggleFullScreen();
 			});
 		}
 	
-		$('#progress_bar').slider({min:0,max:this.total}).bind("slidechange",{me:this},function(e,ui){
+		this.el.find('.progress_bar').slider({min:0,max:this.total}).bind("slidechange",{me:this},function(e,ui){
 			if(e.originalEvent){
 				e.data.me.skipTo($(this).slider("value"));
 			}
@@ -229,7 +248,7 @@
 			e.data.me.play();	
 		});
 	
-		$('#messages').bind('mouseenter',{me:this},function(e){
+		this.el.find('.messages').bind('mouseenter',{me:this},function(e){
 			e.data.me.tweetsinsync = false;
 		}).bind('mouseleave',{me:this},function(e){
 			e.data.me.tweetsinsync = true;
@@ -242,13 +261,13 @@
 		$('textarea, input').bind('focus',{me:this},function(e){ e.data.me.allowkeyboard = false; }).bind('blur',{me:this},function(e){ e.data.me.allowkeyboard = true; });
 
 		$(document).bind('keydown',{me:this},function(e){
-		
-			if(e.data.me.allowkeyboard){
+			if(e.data.me.allowkeyboard && (!e.data.me.multiple || (e.data.me.multiple && e.data.me.mouseover))){
 				var code = e.keyCode || e.charCode || e.which || 0;
 				if(code==37) e.data.me.prevSlide();
 				if(code==39) e.data.me.nextSlide();
 				if(code==32){
 					e.preventDefault();
+					// Need to add logic for when there is more than one
 					e.data.me.togglePlay(true);
 				}
 				if(code-49 > 0 && code-49 < 10){
@@ -271,9 +290,9 @@
 		}
 		
 		// Attach events to the bandwidth buttons
-		$('#low_bw').addClass('selected').bind('click',{me:this},function(e){ e.data.me.setBandwidth("high"); });
-		$('#high_bw').bind('click',{me:this},function(e){ e.data.me.setBandwidth("low"); });
-	
+		this.el.find('.low_bw').addClass('selected').bind('click',{me:this},function(e){ e.data.me.setBandwidth("high"); });
+		this.el.find('.high_bw').bind('click',{me:this},function(e){ e.data.me.setBandwidth("low"); });
+
 		// As we are using the thumbnails (to reduce page load),
 		// we now update the first slide to a higher resolution
 		this.higherResolution(0);
@@ -290,47 +309,52 @@
 	
 		// Update the fullscreen status
 		if(fullScreenApi.isFullScreen()){
-			$('#slides').addClass('fullscreen');
+			this.el.find('.slides').addClass('fullscreen');
 			this.fullscreen = true;
 		}else{
-			$('#slides').removeClass('fullscreen');
+			this.el.find('.slides').removeClass('fullscreen');
 			this.fullscreen = false;
 		}
 	
-		var p = $('#slides');
-		$('.overlay-controls').css({'width':0});
+		var p = this.el.find('.slides');
+		this.el.find('.overlay-controls').css({'width':0});
 		var w = (this.fullscreen) ? screen.width : p.outerWidth();
 		var h = (this.fullscreen) ? screen.height : p.outerHeight();		
 	
-		$('.overlay-controls').css({'width':w});
-		if(this.fullscreen) $('#slides li').css({'width':w,'height':h});
-		else $('#slides li').css({'width':'auto','height':'auto'});
+		this.el.find('.overlay-controls').css({'width':w});
+		if(this.fullscreen) this.el.find('.slides li').css({'width':w,'height':h});
+		else this.el.find('.slides li').css({'width':'auto','height':'auto'});
 		
 		h = parseInt((h-65)/2);
-		$('.mainplay').css({'margin-top':(h<0) ? 0 : h});
-		$('.controls_right').css({'width':(w-65)});
+		this.el.find('.mainplay').css({'margin-top':(h<0) ? 0 : h});
+		this.el.find('.controls_right').css({'width':(w-65)});
 		
 	}
 	
 	dotastro.prototype.toggleFullScreen = function(){
-		this.elem = document.getElementById("slides");
+		// Create an ID for the slides
+		var id = "player_"+Math.random();
+		// Update the slides ID
+		this.el_slides.attr('id',id);
+		// Get the .slides element
+		this.elem = document.getElementById(id);
 		if(fullScreenApi.isFullScreen()){
 			fullScreenApi.cancelFullScreen(this.elem);
 			this.fullscreen = false;
-			$('#slides').removeClass('fullscreen');
+			this.el.find('.slides').removeClass('fullscreen');
 		}else{
 			fullScreenApi.requestFullScreen(this.elem);
 			this.fullscreen = true;
-			$('#slides').addClass('fullscreen');
+			this.el.find('.slides').addClass('fullscreen');
 		}
 		this.sizeOverlay();
 	}
 	
 	dotastro.prototype.toggleNotes = function(){
 	
-		$('#messages').toggle();
-		if($('#messages').is(':visible')) $('.slide-holder').removeClass('fullwidth');
-		else $('.slide-holder').addClass('fullwidth');
+		this.el.find('.messages').toggle();
+		if(this.el.find('.messages').is(':visible')) this.el.find('.slide-holder').removeClass('fullwidth');
+		else this.el.find('.slide-holder').addClass('fullwidth');
 		this.sizeOverlay();
 	
 	}
@@ -373,7 +397,7 @@
 		if(this.tweetsinsync){
 			var el;
 			for(i = 0 ; i < this.messages.length ; i++){
-				el = $('#messages ul li:eq('+i+')');
+				el = this.el.find('.messages ul li:eq('+i+')');
 				if(this.messages[i] > t) el.hide();
 				if((this.messages[i] <= t || t >= this.total) && !el.is(':visible')){
 					if(this.bw == "low") el.show();
@@ -381,8 +405,8 @@
 				}
 			}
 		}
-		$('#progress_bar').slider("value",t);
-		$('.controls .clock').html(buzz.toTimer(t)+" / "+$('.total').text());
+		this.el.find('.progress_bar').slider("value",t);
+		this.el.find('.controls .clock').html(buzz.toTimer(t)+" / "+this.el.find('.total').text());
 	
 		if(t >= this.total) this.pause();
 	
@@ -391,16 +415,16 @@
 	dotastro.prototype.first = function(){
 	
 		// Hide the main play button
-		$('.mainplay').hide();
+		this.el.find('.mainplay').hide();
 	
 		// Show the controls
 		this.showControls();
 	
 		// We are starting so we'll hide all but the first message
-		$('#messages li:not(:first)').hide();
-	
+		this.el.find('.messages li:not(:first)').hide();
+
 		// Reverse the messages list
-		$('#messages ul').each(function(){
+		this.el.find('.messages ul').each(function(){
 			var ul = $(this);
 			ul.children().each(function(i, li){
 				ul.prepend(li);
@@ -409,7 +433,7 @@
 		
 		// Get all the message times
 		var _obj = this;
-		$('#messages li .timestamp').each(function(i){
+		this.el.find('.messages li .timestamp').each(function(i){
 			_obj.messages.push(buzz.fromTimer($(this).attr('data')));
 		});	
 	
@@ -424,7 +448,7 @@
 		// Reset last move time
 		this.lastmove = new Date();
 	
-		if($('.mainplay').is(':visible')) this.first();
+		if(this.el.find('.mainplay').is(':visible')) this.first();
 	
 		this.sound.togglePlay();
 		if(typeof hide!="boolean") hide = false;
@@ -437,8 +461,8 @@
 		if(this.video) this.video.pause();
 		this.playing = false;
 		clearInterval(this.intervalID);
-		$('.paused').hide();
-		$('.playing').show();
+		this.el.find('.paused').hide();
+		this.el.find('.playing').show();
 		if(hide) this.showControls();
 	}
 	
@@ -449,38 +473,38 @@
 		this.intervalID = setInterval((function(self) {
 			return function() {
 				self.updateScreen(Math.round(self.sound.getTime()));
-				if($('.controls').is(':visible')){
+				if(self.el.find('.controls').is(':visible')){
 					var d = new Date();
 					if(d-self.lastmove > 3000) self.hideControls();
 				}
 			}
 		})(this),1000);
-		$('.paused').show();
-		$('.playing').hide();
+		this.el.find('.paused').show();
+		this.el.find('.playing').hide();
 	}
 	
 	dotastro.prototype.toggleControls = function(){
-		if($('.controls').is(':visible')) this.hideControls();
+		if(this.el.find('.controls').is(':visible')) this.hideControls();
 		else this.showControls();
 	}
 	
 	dotastro.prototype.hideControls = function(){
-		if(this.bw == "low") $('.controls').hide();
-		else $('.controls').slideUp();
-		$('.overlay-controls').css({'z-index':0});
+		if(this.bw == "low") this.el.find('.controls').hide();
+		else this.el.find('.controls').slideUp();
+		this.el.find('.overlay-controls').css({'z-index':0});
 	}
 	
 	dotastro.prototype.showControls = function(){
-		if(this.bw == "low") $('.controls').show();
-		else $('.controls').slideDown();
-		$('.overlay-controls').css({'z-index':10});
+		if(this.bw == "low") this.el.find('.controls').show();
+		else this.el.find('.controls').slideDown();
+		this.el.find('.overlay-controls').css({'z-index':10});
 	}
 	
 	dotastro.prototype.setBandwidth = function(bw){
 		if(bw != this.bw){
 			// Update the buttons
-			$('#low_bw').toggleClass('selected');
-			$('#high_bw').toggleClass('selected');
+			this.el.find('.low_bw').toggleClass('selected');
+			this.el.find('.high_bw').toggleClass('selected');
 			this.bw = bw;
 	
 			// Check if the sound is playing. If it is we
@@ -514,7 +538,7 @@
 	
 	dotastro.prototype.higherResolutionSrc = function(img,full){
 		var src = img.attr('src');
-		var w = $('#slides').outerWidth();
+		var w = this.el.find('.slides').outerWidth();
 		if(src){
 			var idx = src.indexOf('_small');
 			if(idx > 0){
@@ -532,9 +556,16 @@
 			}
 		}else return "";
 	}
-	
+
+	dotastro.prototype.setImage = function(img,src,bw){
+		var _obj = this;
+		img.on('load',function(){ _obj.sizeOverlay(); });
+		img.attr('src',src);
+		if(typeof bw==="string" && bw) this.setBandwidth(bw);
+	}
+
 	dotastro.prototype.higherResolution = function(i){
-		var img = $('.slide:eq('+i+') img');
+		var img = this.el.find('.slide:eq('+i+') img');
 		var src = "";
 		if(img.length > 0) src = this.higherResolutionSrc(img, (i==0 ? true : false));
 	
@@ -542,13 +573,13 @@
 	
 			// If we are dealing with the first image we'll use
 			// it to check the bandwidth
-			if($('.mainplay').is(':visible')){
+			if(this.el.find('.mainplay').is(':visible')){
 	
 				var _obj = {me:this,img:img,src:src};
 				var request = $.ajax({
 					type: "HEAD",
 					url: src,
-					success: function () {
+					success: function(){
 						if(request.getResponseHeader("Content-Length")){
 							var im = new Image();
 							$(im).bind('load',{me:_obj.me,img:_obj.img,fileSize:request.getResponseHeader("Content-Length"),d:new Date()},function(e){
@@ -561,28 +592,30 @@
 								// Check if the download rate seems too low
 								// i.e. under, say, 40kbps
 								var rate = e.data.fileSize/dt;
-								//if(rate < 40000) $('#high_bw').append(' (not recommended)');
 								e.data.me.setBandwidth((rate > 40000 ? "high" : "low"));
 								e.data.me.sizeOverlay();
 	
 							}).attr({'src':src});
 						}else{
-							_obj.img.attr('src',_obj.src);
-							_obj.me.setBandwidth("high");
-							_obj.me.sizeOverlay();
+							_obj.me.setImage(_obj.img,_obj.src,"high");
 						}
+					},
+					error: function(){
+						// Likely here because we're running locally and the browser security model has kicked in
+						_obj.me.setImage(_obj.img,_obj.src,"high");
 					}
 				});
 	
 			}else{
 				if(console && typeof console.log=="function") console.log('Using higher resolution version',src);
 				img.attr('src',src);
+				this.sizeOverlay();
 			}
 		}
 	}
 	
 	dotastro.prototype.preloadSlide = function(i){
-		var src = this.higherResolutionSrc($('.slide:eq('+i+') img'));
+		var src = this.higherResolutionSrc(this.el.find('.slide:eq('+i+') img'));
 		if(src != ""){
 			if(console && typeof console.log=="function") console.log('Preloading',src);
 			var pic = new Image();
@@ -598,13 +631,13 @@
 			var changed = (this.slide != i)
 	
 			// Hide the old slide
-			if(changed) $('.slide:visible').hide();
+			if(changed) this.el.find('.slide:visible').hide();
 	
 			// Store the current slide number
 			this.slide = i;
 	
 			// Get the DOM element for the slide
-			var s = $('.slide:eq('+this.slide+')');
+			var s = this.el.find('.slide:eq('+this.slide+')');
 	
 			if(changed){
 				this.higherResolution(i);
@@ -654,8 +687,15 @@
 	}
 	
 	$(document).ready(function(){
-		if($('#talk').length > 0){
-			var talk = new dotastro();
+
+		$('#talk #slides').addClass('slides');
+		$('#talk #credits').addClass('credits');
+		$('#talk #messages').addClass('messages');
+		$('#talk #audio').addClass('audio');
+		var talks = new Array();
+		if($('#talk').length > 0) talks.push(new dotastro({'el':$('#talk')}));
+		else{
+			if($('.talk').length > 0) $('.talk').each(function(i){ talks.push(new dotastro({'el':$(this),'multiple':true})); });
 		}
 	});
 
