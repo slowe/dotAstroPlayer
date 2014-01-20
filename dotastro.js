@@ -198,8 +198,6 @@
 			e.data.player.mouseover = true;
 		})
 
-		this.el_slides.css({'min-height':this.el_slides.height()})
-
 		this.el.find('.mainplay').bind('click',{me:this},function(e){
 			e.data.me.togglePlay();
 		});
