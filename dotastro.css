@@ -28,8 +28,9 @@
 .download { position: relative; display: inline-block; padding: 0px; text-shadow: none; line-height: 32px; min-height: 32px; padding: 0 8px 0 0; }
 .download ul { margin: 0px; display: inline-block; }
 .download ul li { margin: 0px; padding: 0px; line-height: 32px; background-image: none; display: inline-block; }
-.download .download-inner { height: 32px; float: left; color: white; cursor: pointer; }
-.download .downloadbtn { width: 32px; height: 32px; float: left; }
+.download .download-inner { height: 32px; width: 150px; float: left; color: white; cursor: pointer; }
+.download .downloadbtn, .videolinks .vimeobtn { width: 32px; height: 32px; float: left; }
+.videolinks .vimeobtn {background: #44bbff;}
 .download ul.sub-menu {
 	background: none repeat scroll 0 0 #FFFFFF;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 4px 0 rgba(0, 0, 0, 0.05) inset;
@@ -55,6 +56,18 @@
 }
 .download ul.sub-menu.inactive li {	margin-right: 8px; }
 
+a.vimeo {
+	background: #44bbff;
+	height: 27px; width: 125px; float: left; color: white; cursor: pointer;
+	padding: 5px 0 0 1px;
+}
+
+img.vimeoicon {
+	width:80%;
+	padding: 10% 0 0 10%;
+	opacity:0.9;
+}
+
 ul.other-speakers { margin: 0px!important; }
 ul.other-speakers li img { width: 100%; }
 
@@ -71,6 +84,7 @@ ul.other-speakers li img { width: 100%; }
 .slides.fullscreen .slide { height: 100%; display: block; }
 .slides.fullscreen .slide .pic { height: 100%; }
 .slides.fullscreen .slide a.big_slide img, .slides.fullscreen .slide video { width: auto; margin:auto; height: 100%; }
+.slides:after {content: none;}
 .pres .slides.slides-active { background-color: black; height: auto; position: relative; }
 .pres .slides ul { list-style: none; margin: 0px; padding: 0px; }
 .pres .slides li { margin-bottom: 0px; list-style: none; }
@@ -106,9 +120,9 @@ ul.other-speakers li img { width: 100%; }
 .audio,.credits { clear: both; }
 video { margin: 0px; display: block; }
 
-.audio, .credits { margin-top: 8px; }
+.audio, .credits { margin-bottom: 8px; }
 .credits ul { margin: 0px; }
-.credits ul li { display: inline-block; margin-right: 15px; }
+.credits ul li { display: inline-block; margin-right: 6px; font-size: 80%; }
 
 .messages { clear: both; max-width: 100%; margin-left: 0px; margin-top: 20px; }
 .messages h3 { line-height: 40px; margin-left: 0px; }

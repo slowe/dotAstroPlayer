@@ -183,6 +183,7 @@ if(!-e $flag{'setup'} || (-e $flag{'setup'} && $flag{'overwrite'})){
 	print "Creating initial setup in $flag{'setup'}... ";
 	open(FILE,">",$flag{'setup'});
 	print FILE "Title:                                              # the title of the talk\n";
+	print FILE "Root: http://dotastronomy.com/wp-content/uploads/5talks/                  \n";
 	print FILE "Fullname: ".sprintf("%-41s",ucfirst($dir))." # the full name of the speaker\n";
 	print FILE "Audio: extracted.wav                                # the wav file for the audio\n";
 	print FILE "Picture: http://www.dotastronomy.com/img/pics/.png  # the avatar image for the speaker\n";
@@ -253,6 +254,8 @@ foreach $line (@lines){
 		}
 	}elsif($line =~ /Picture: (.*)$/){
 		$picture = $1;
+	}elsif($line =~ /Root: (.*)$/){
+		$root = $1;
 	}elsif($line =~ /Youtube: (.*)$/){
 		$youtube = $1;
 	}elsif($line =~ /Vimeo: (.*)$/){
@@ -458,7 +461,7 @@ foreach $l (@ls){
 			if($i > 1 && $i < $s){ $prevnext .= " | "; }
 			if($i < $s){ $prevnext .= "<a href=\"#".($i+1)."\">next</a>"; }
 			$extra = ($i % 3 == 0) ? " last" : "";
-			$slidehtml .= "									<li class=\"slide one-fourth".($extra)."\" id=\"".($i)."\"><div class=\"pic\"><a href=\"$full\" class=\"big_slide\"><img src=\"$small\" alt=\"Slide $i\" /></a></div><div class=\"timestamp\">Time: <time>$timestamp</time>. $prevnext</div></li>\n";
+			$slidehtml .= "									<li class=\"slide one-fourth".($extra)."\" id=\"".($i)."\"><div class=\"pic\"><a href=\"$root$full\" class=\"big_slide\"><img src=\"$root$small\" alt=\"Slide $i\" /></a></div><div class=\"timestamp\">Time: <time>$timestamp</time>. $prevnext</div></li>\n";
 		}
 		if($t eq "video"){
 			$i++;
@@ -595,13 +598,14 @@ if($youtube){
 	$videolinks .= " <a href=\"$youtube\">Youtube</a>";
 }
 if($vimeo){
-	$videolinks .= " <a href=\"$vimeo\">Vimeo</a>";
+	$videolinks .= "<div class=\"vimeobtn\"><img src=\"http://dotastronomy.com/lowe/vimeo.png\" class=\"vimeoicon\"></div> <a href=\"$vimeo\" class=\"vimeo\">Watch on Vimeo</a>";
 }
 
 
 open(HTML,">","$dir/index.html");
 foreach $line (@lines){
 	$line =~ s/\{\% TITLE \%\}/$title/g;
+	$line =~ s/\{\% ROOT \%\}/$root/g;
 	$line =~ s/\{\% AUDIO \%\}/$audio/g;
 	$line =~ s/\{\% AUDIO_OGG_SIZE \%\}/$oggsize/g;
 	$line =~ s/\{\% AUDIO_MP3_SIZE \%\}/$mp3size/g;
