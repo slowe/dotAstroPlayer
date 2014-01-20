@@ -117,7 +117,7 @@ ul.other-speakers li img { width: 100%; }
 .controls .bandwidth.selected { display: inline-block; }
 .controls .play:hover, .controls .volume:hover, .controls .mute:hover, .controls .bandwidth:hover, .controls .fullscreen:hover { cursor: pointer; }
 
-.audio,.credits { clear: both; }
+.audio,.credits { clear: both; max-width: 100%; }
 video { margin: 0px; display: block; }
 
 .audio, .credits { margin-bottom: 8px; }
