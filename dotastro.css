@@ -72,6 +72,7 @@ ul.other-speakers { margin: 0px!important; }
 ul.other-speakers li img { width: 100%; }
 
 .pres .slide-holder.fullwidth { width: 100%!important; }
+.slides.slides-active { min-height: 65px; }
 .slides ul { list-style: none; margin: 0px!important; padding: 0px; }
 .slides ul li { height: auto; }
 .slides li { margin-bottom: 20px; padding: 0px; background-image: none; }

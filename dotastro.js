@@ -502,12 +502,12 @@
 	}
 	
 	dotastro.prototype.setBandwidth = function(bw){
-		if(bw != this.bw){
+		if(typeof bw==="string" && bw != this.bw){
 			// Update the buttons
 			this.el.find('.low_bw').toggleClass('selected');
 			this.el.find('.high_bw').toggleClass('selected');
 			this.bw = bw;
-	
+
 			// Check if the sound is playing. If it is we
 			// pause it and restart it once we've swapped.
 			var playing = this.playing;
@@ -558,11 +558,10 @@
 		}else return "";
 	}
 
-	dotastro.prototype.setImage = function(img,src,bw){
+	dotastro.prototype.setImage = function(img,src){
 		var _obj = this;
 		img.on('load',function(){ _obj.sizeOverlay(); });
 		img.attr('src',src);
-		if(typeof bw==="string" && bw) this.setBandwidth(bw);
 	}
 
 	dotastro.prototype.higherResolution = function(i){
@@ -598,12 +597,12 @@
 	
 							}).attr({'src':src});
 						}else{
-							_obj.me.setImage(_obj.img,_obj.src,"high");
+							_obj.me.setImage(_obj.img,_obj.src);
 						}
 					},
 					error: function(){
 						// Likely here because we're running locally and the browser security model has kicked in
-						_obj.me.setImage(_obj.img,_obj.src,"high");
+						_obj.me.setImage(_obj.img,_obj.src);
 					}
 				});
 	
