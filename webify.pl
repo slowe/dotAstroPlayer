@@ -241,7 +241,7 @@ $photographer = "Dotastronomy";
 $precrop = "";
 foreach $line (@lines){
 	$line =~ s/[\n\r]//g;
-	$line =~ s/\#.*$//g;	# Remove comments
+	$line =~ s/\# .*$//g;	# Remove comments - # followed by a space (so as not to zap hashtags)
 	$line =~ s/([^\s])[\s]*$/$1/g;	# Remove trailing spaces
 	if($line =~ /Title: (.*)$/){
 		$title = $1;
