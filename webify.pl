@@ -151,7 +151,7 @@ if(-e $flag{'extractvideo'}){
 		if($dst !~ /\/$/){ $dst .= "/"; }
 		$dst .= "extracted.mp4";
 		$ext = "-ss $flag{'start'} -t $flag{'duration'}";
-		if(!-e $flag{'extractvideo'}){
+		if(!-e $dst){
 			`$app{'ffmpeg'} -y -i $flag{'extractvideo'} -r 30000/1001 -b 5M -bt 6M -vcodec mpeg4 $ext -an $dst`;
 		}
 	}
