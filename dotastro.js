@@ -222,7 +222,7 @@
 			e.preventDefault();
 			e.data.me.sound.unmute();
 			$(this).hide();
-			e.data.me.find('.volume').show();
+			e.data.me.el.find('.volume').show();
 		}).hide();
 	
 		// Bind fullscreen event
