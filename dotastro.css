@@ -77,7 +77,7 @@ ul.other-speakers li img { width: 100%; }
 .slides li { margin-bottom: 20px; padding: 0px; background-image: none; }
 .slides.slides-active .slide { z-index: 1; width: 100%; }
 .slides.slides-active .slide a img { display: block; }
-.slides.slides-active .slide img { width: 100%; }
+.slides.slides-active .slide img { width: 100%; margin-bottom: 0px; }
 .slides.slides-inactive .timestamp { margin-bottom: 1em; }
 .slides.slides-inactive .slide .pic img { width: 100%; margin-bottom: 0px; }
 .slides.fullscreen { width:100%!important; height:100%!important; }
@@ -138,7 +138,7 @@ video { margin: 0px; display: block; }
 
 .pres .messages { display: inline-block; margin-top: 0px; }
 .pres .messages h3 { line-height: 1em; margin-left: 0.75em;}
-.pres .messages ul { margin: 0.5em 0 0 0; height: 496px; overflow: auto; padding: 0px; list-style: none; }
+.pres .messages ul { margin: 0.5em 0 0 0; height: 500px; overflow: auto; padding: 0px; list-style: none; }
 .pres .messages ul li { border: 0px; margin-left: 0.75em;background: none; padding: 0px; margin-bottom: 0.75em; margin-right: 5px; position:relative; display: block; }
 .pres .messages .tweeter { position: relative; margin: 0px 0px; display: block; text-align: center; }
 .pres .messages .tweeter .profile_image { display: inline-block; width: 100%; height: auto; margin: 0px; }
