@@ -167,7 +167,7 @@
 		});
 		this.el.find('.slide').removeClass('one-fourth');
 
-		this.el_slides = this.el.find('.slide-holder').children().eq(0);
+		this.el_slides = this.el.find('.slides');
 		this.el_slides.disableTextSelect().prepend('<div class="overlay-splash"><div class="mainplay"><img src="'+this.basedir+'play.png" /></div></div><div class="overlay-controls"><div class="controls"><div class="controls_inner"><div class="play"><img src="'+this.basedir+'play.png" class="playing" title="Click to play" /><img src="'+this.basedir+'pause.png" class="paused" title="Click to pause" /></div><div class="controls_right"><div class="controls_row"><div class="volume"><img src="'+this.basedir+'volume.png" title="Click to mute" /></div><div class="mute"><img src="'+this.basedir+'mute.png" title="Click to unmute" /></div><div class="low_bw bandwidth"><img src="'+this.basedir+'sd.png" title="Low bandwidth audio - click to change" /></div><div class="high_bw bandwidth"><img src="'+this.basedir+'hd.png" title="High bandwidth audio - click to change" /></div>'+(fullScreenApi.supportsFullScreen ? '<div class="fullscreen"><img src="'+this.basedir+'fullscreen.png" title="Click to toggle fullscreen" /></div>' : '')+'<div class=\"clock\">00:00</div></div><div class="progress"><div class="progress_outer"><div class="progress_inner"><div class="progress_bar"></div></div></div></div></div></div></div></div>').bind('mousemove',{me:this},function(e){
 			e.data.me.lastmove = new Date();
 		}).addClass('slides-active').removeClass('slides-inactive');
