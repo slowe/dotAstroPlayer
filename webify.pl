@@ -554,6 +554,7 @@ foreach $tweet (@tweets){
 			$text =~ s/RT \@$name//g;
 			$text =~ s/\\\//\//g;
 			$text =~ s/\\\"/\"/g;
+			$text =~ s/\\u2014/\&\#8212\;/g;	# Replace unicode emdash with HTML entity
 			$text =~ s/(https?:\/\/[^\s]*)/$expander{$1}/g;
 			$text =~ s/(https?:\/\/)([^\s]*)/\<a href='$1$2'\>$2\<\/a\>/g;
 			$text =~ s/\@([a-zA-Z0-9\_]*)/\@\<a href='http:\/\/twitter.com\/$1'\>$1\<\/a\>/g;

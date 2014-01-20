@@ -255,6 +255,9 @@
 		// Check for failure to load Twitter profile images
 		if($('.profile_image img').length > 0) imageLoadError('.profile_image img');
 
+		// Replace some unicode characters with HTML escapes
+		$('li.tweet p').each(function(){ $(this).html($(this).html().replace(/\\u2014/,"&#8212;")); });
+
 		// If the user has put focus on a textarea/input field we shouldn't do anything with their key presses
 		$('textarea, input').bind('focus',{me:this},function(e){ e.data.me.allowkeyboard = false; }).bind('blur',{me:this},function(e){ e.data.me.allowkeyboard = true; });
 
