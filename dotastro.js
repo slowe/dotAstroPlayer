@@ -273,8 +273,14 @@
 		$(document).bind('keydown',{me:this},function(e){
 			if(e.data.me.allowkeyboard && (!e.data.me.multiple || (e.data.me.multiple && e.data.me.mouseover))){
 				var code = e.keyCode || e.charCode || e.which || 0;
-				if(code==37) e.data.me.prevSlide();
-				if(code==39) e.data.me.nextSlide();
+				if(code==37){
+					if(e.data.me.mouseover) e.preventDefault();
+					e.data.me.prevSlide();
+				}
+				if(code==39){
+					if(e.data.me.mouseover) e.preventDefault();
+					e.data.me.nextSlide();
+				}
 				if(code==32){
 					e.preventDefault();
 					// Need to add logic for when there is more than one

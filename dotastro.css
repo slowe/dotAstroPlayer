@@ -88,7 +88,7 @@ img.vimeoicon {
 .dotastrotalk .messages .timestamp { font-weight: bold; display: inline-block; margin-right: 0.1em; }
 .dotastrotalk .messages time { display: inline-block; }
 .dotastrotalk .messages .tweet { overflow: hidden; }
-.dotastrotalk .messages .tweet .bubble { float: left; margin-right: 40px; }
+.dotastrotalk .messages .tweet .bubble { margin-right: 40px; }
 .dotastrotalk .messages .tweet .bubble p { margin: 0px; }
 .messages .tweet .tweeter { position: absolute; top: 0px; right: 0px; }
 .dotastrotalk .messages .profile_image { display: block; width: 38px; }
@@ -108,7 +108,8 @@ img.vimeoicon {
 .dotastrotalk .messages .tweet .bubble { background-color: #E9E9E9!important; }
 
 .dotastrotalk .messages .bubble p { margin: 0px; }
-.dotastrotalk .messages .bubble { float: none; line-height: 1.25em; min-height: 2em; background: #202020; position: relative; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em; border-radius: 0.5em; padding: 1em; margin: 0em; text-align: center; box-shadow: 1px 1px 4px rgba(0,0,0,0.0); }
+.dotastrotalk .messages .bubble { display: block; float: none; line-height: 1.25em; min-height: 2em; background: #202020; position: relative; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em; border-radius: 0.5em; padding: 1em; margin: 0em; text-align: center; box-shadow: 1px 1px 4px rgba(0,0,0,0.0); }
+.dotastrotalk .messages .bubble-inner { display: block; }
 .dotastrotalk .messages .bubble:before,.bubble:after { content:""; position: absolute; width: 0; height: 0; }
 .dotastrotalk .messages .bubble.bubble-east { text-align: left; margin: 0 0 0 0em; }
 .dotastrotalk .messages .bubble.bubble-east:before { right: 100%; top: 50%; margin: -0.75em 0 0 0; border-top: 0.75em solid transparent; border-right: 0.75em solid #d9daf7; border-bottom: 0.75em solid transparent; }
@@ -119,6 +120,7 @@ img.vimeoicon {
 
 @media only screen and (max-width: 959px){
 	.slides { max-width: 100%!important; }
+	.dotastrotalk .slides, .dotastrotalk .messages ul { height: auto; }
 	.dotastrotalk .slide-holder { width: 100%!important; }
 	.dotastrotalk .message-holder { width: 100%; }
 	.dotastrotalk .messages h3 { margin-left: 0px; line-height: 40px; }
