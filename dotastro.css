@@ -26,7 +26,7 @@
 .bw { cursor: pointer; display: inline-block; padding: 4px 8px; margin: 0 5px 15px 0; font-size: 1.2em; color:#fff; text-shadow:none; background:#c2c2c2; border-radius:3px; }
 .bwset { display: inline-block; }
 .download { position: relative; display: inline-block; padding: 0px; text-shadow: none; line-height: 32px; min-height: 32px; padding: 0 8px 0 0; }
-.download ul { margin: 0px; display: inline-block; }
+.download ul { margin: 0px; display: inline-block; padding: 0px; }
 .download ul li { margin: 0px; padding: 0px; line-height: 32px; background-image: none; display: inline-block; }
 .download .download-inner { height: 32px; width: 150px; float: left; color: white; cursor: pointer; }
 .download .downloadbtn, .videolinks .vimeobtn { width: 32px; height: 32px; float: left; }
@@ -70,17 +70,20 @@ img.vimeoicon {
 
 ul.other-speakers { margin: 0px!important; }
 ul.other-speakers li img { width: 100%; }
+ul.speakers { margin: 0px; }
 
 .pres .slide-holder.fullwidth { width: 100%!important; }
 .slides.slides-active { min-height: 65px; }
 .slides ul { list-style: none; margin: 0px!important; padding: 0px; }
-.slides ul li { height: auto; }
-.slides li { margin-bottom: 20px; padding: 0px; background-image: none; }
-.slides.slides-active .slide { z-index: 1; width: 100%; }
+.slides ul li { height: auto; display: inline-block; }
+.slide { margin-bottom: 20px; padding: 0px; background-image: none; }
+.slide .timestamp { margin-bottom: 1em; }
+.slide .pic img { width: auto; margin-bottom: 0px; }
+.slides.slides-active .slide { z-index: 1; width: 100%; display: inline; }
 .slides.slides-active .slide a img { display: block; }
 .slides.slides-active .slide img { width: 100%; margin-bottom: 0px; }
-.slides.slides-inactive .timestamp { margin-bottom: 1em; }
-.slides.slides-inactive .slide .pic img { width: 100%; margin-bottom: 0px; }
+.slides.slides-active .slide .timestamp { margin-bottom: 0em; }
+.slides.slides-active .slide .pic img { width: 100%; margin-bottom: 0px; }
 .slides.fullscreen { width:100%!important; height:100%!important; }
 .slides.fullscreen .slide { height: 100%; display: block; }
 .slides.fullscreen .slide .pic { height: 100%; }
@@ -127,6 +130,7 @@ video { margin: 0px; display: block; }
 
 .messages { clear: both; max-width: 100%; margin-left: 0px; margin-top: 20px; }
 .messages h3 { line-height: 40px; margin-left: 0px; }
+.messages ul { list-style: none; margin: 0px; padding: 0px; }
 .messages ul li { position: relative; margin: 0px; border-bottom: 1px solid #D3D3D3; clear: both; padding: 8px 0px; background-image: none; }
 .messages .timestamp { font-weight: bold; display: inline-block; margin-right: 0.1em; }
 .messages .timestamp time { display: inline-block; }

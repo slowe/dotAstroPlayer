@@ -10,7 +10,7 @@
 	
 	// Elements with the class "accessible" are intended for people who don't 
 	// have Javascript enabled. If we are here they obviously do have Javascript.
-	if(buzz.isOGGSupported() || buzz.isMP3Supported()) document.write('<style type="text/css"> .slide, .slides h3, .slides .timestamp, .audio h3, .credits h3 { display: none; height: 0px; } .slides li:first-child { display: inline-block; }</style>');
+	if(buzz.isOGGSupported() || buzz.isMP3Supported()) document.write('<style type="text/css"> .slide, .slides h3, .slides .timestamp, .audio h3, .credits h3 { display: none; height: 0px; } .slides li:first-child { display: inline; }</style>');
 	
 	// jQuery UI for the time slider
 	/*! jQuery UI - v1.8.21 - 2012-06-05
@@ -172,11 +172,17 @@
 			e.data.me.lastmove = new Date();
 		}).addClass('slides-active').removeClass('slides-inactive');
 	
-		this.el.find('.download-inner').bind('click',{me:this},function(e){
-			$(this).parent().find('ul').slideToggle("fast");
-		}).parent().find('ul').removeClass('inactive').hide();
+		// Hide all the slides except for the first one
+		this.el_slides.find('li.slide').not(':first').hide();
+
+		if(this.el.find('.download-inner').length > 0){
+			this.el.find('.download-inner').bind('click',{me:this},function(e){
+				$(this).parent().find('ul').slideToggle("fast");
+			}).parent().find('ul').removeClass('inactive').hide();
+		}
 		
-		this.el_slides.find('ul').removeClass('speakers').bind('click',{me:this},function(e){
+		
+		this.el_slides.find((this.el_slides.find('ol').length > 0) ? 'ol' : 'ul').removeClass('speakers').bind('click',{me:this},function(e){
 			e.preventDefault();
 			e.data.me.toggleControls();
 		});
@@ -250,7 +256,7 @@
 			e.data.me.tweetsinsync = false;
 		}).bind('mouseleave',{me:this},function(e){
 			e.data.me.tweetsinsync = true;
-		});
+		}).addClass('messages-active');
 	
 		// Check for failure to load Twitter profile images
 		if($('.profile_image img').length > 0) imageLoadError('.profile_image img');
@@ -354,8 +360,10 @@
 	dotastro.prototype.toggleNotes = function(){
 	
 		this.el.find('.messages').toggle();
-		if(this.el.find('.messages').is(':visible')) this.el.find('.slide-holder').removeClass('fullwidth');
-		else this.el.find('.slide-holder').addClass('fullwidth');
+		if(this.el.find('.slide-holder').length > 0){
+			if(this.el.find('.messages').is(':visible')) this.el.find('.slide-holder').removeClass('fullwidth');
+			else this.el.find('.slide-holder').addClass('fullwidth');
+		}
 		this.sizeOverlay();
 	
 	}
@@ -398,7 +406,8 @@
 		if(this.tweetsinsync){
 			var el;
 			for(i = 0 ; i < this.messages.length ; i++){
-				el = this.el.find('.messages ul li:eq('+i+')');
+				el = this.el.find('.messages ol li:eq('+i+')');
+				if(el.length == 0) el = this.el.find('.messages li:eq('+i+')');
 				if(this.messages[i] > t) el.hide();
 				if((this.messages[i] <= t || t >= this.total) && !el.is(':visible')){
 					if(this.bw == "low") el.show();
@@ -425,7 +434,7 @@
 		this.el.find('.messages li:not(:first)').hide();
 
 		// Reverse the messages list
-		this.el.find('.messages ul').each(function(){
+		this.el.find((this.el.find('.messages ol').length > 0) ? '.messages ol' : '.messages ul').each(function(){
 			var ul = $(this);
 			ul.children().each(function(i, li){
 				ul.prepend(li);
