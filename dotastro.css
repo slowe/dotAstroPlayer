@@ -1,3 +1,4 @@
+<!-- dotastronomy.com specific -->
 .one-half, .one-third, .two-third, .three-fourth, .one-fourth, .one-fifth, .two-fifth, .three-fifth, .four-fifth {
 	display: inline;
 	float: left;
@@ -19,12 +20,18 @@
 .talk .messages p { margin: 0px; }
 .talk .messages .bubble-inner, .talk .messages p { text-align: center!important; }
 
-/* Set the "blue" styling */
-.ui-slider .ui-slider-handle, .download, .slides:hover .mainplay, .controls .play:hover, .controls .volume:hover, .controls .mute:hover, .controls .bandwidth:hover, .controls .fullscreen:hover, .bw.selected, .bw:hover { background: #474ff7; }
 
-.talk a img:hover { opacity: 1; filter: alpha(opacity=100); }
-.bw { cursor: pointer; display: inline-block; padding: 4px 8px; margin: 0 5px 15px 0; font-size: 1.2em; color:#fff; text-shadow:none; background:#c2c2c2; border-radius:3px; }
-.bwset { display: inline-block; }
+.slides ul { list-style: none; margin: 0px!important; padding: 0px; }
+.slides ul li { height: auto; display: inline-block; }
+.slide { margin-bottom: 20px; padding: 0px; background-image: none; }
+.slide .timestamp { margin-bottom: 1em; }
+.slide .pic img { width: auto; margin-bottom: 0px; }
+
+ul.other-speakers { margin: 0px!important; }
+ul.other-speakers li img { width: 100%; }
+ul.speakers { margin: 0px; }
+
+.download { background: #474ff7; }
 .download { position: relative; display: inline-block; padding: 0px; text-shadow: none; line-height: 32px; min-height: 32px; padding: 0 8px 0 0; }
 .download ul { margin: 0px; display: inline-block; padding: 0px; }
 .download ul li { margin: 0px; padding: 0px; line-height: 32px; background-image: none; display: inline-block; }
@@ -68,115 +75,54 @@ img.vimeoicon {
 	opacity:0.9;
 }
 
-ul.other-speakers { margin: 0px!important; }
-ul.other-speakers li img { width: 100%; }
-ul.speakers { margin: 0px; }
+.dotastrotalk .audio, .dotastrotalk .credits { clear: both; max-width: 100%; margin-bottom: 8px; }
+.dotastrotalk .credits ul { margin: 0px; }
+.dotastrotalk .credits ul li { display: inline-block; margin-right: 6px; font-size: 80%; }
 
-.pres .slide-holder.fullwidth { width: 100%!important; }
-.slides.slides-active { min-height: 65px; }
-.slides ul { list-style: none; margin: 0px!important; padding: 0px; }
-.slides ul li { height: auto; display: inline-block; }
-.slide { margin-bottom: 20px; padding: 0px; background-image: none; }
-.slide .timestamp { margin-bottom: 1em; }
-.slide .pic img { width: auto; margin-bottom: 0px; }
-.slides.slides-active .slide { z-index: 1; width: 100%; display: inline; }
-.slides.slides-active .slide a img { display: block; }
-.slides.slides-active .slide img { width: 100%; margin-bottom: 0px; }
-.slides.slides-active .slide .timestamp { margin-bottom: 0em; }
-.slides.slides-active .slide .pic img { width: 100%; margin-bottom: 0px; }
-.slides.fullscreen { width:100%!important; height:100%!important; }
-.slides.fullscreen .slide { height: 100%; display: block; }
-.slides.fullscreen .slide .pic { height: 100%; }
-.slides.fullscreen .slide a.big_slide img, .slides.fullscreen .slide video { width: auto; margin:auto; height: 100%; }
-.slides:after {content: none;}
-.pres .slides.slides-active { background-color: black; height: auto; position: relative; }
-.pres .slides ul { list-style: none; margin: 0px; padding: 0px; }
-.pres .slides li { margin-bottom: 0px; list-style: none; }
-.pres .endoftalk { display: none; }
-.pres .overlay-splash { display: table-cell; vertical-align: middle; position: absolute; left: 0px; top: 0px; z-index: 100; }
-.pres .overlay-controls { display: inline-block; position: absolute; bottom: 0px; z-index: 99; }
-.pres .slides h3, .pres .messages h3 { margin: 0px; line-height: 1em; }
+.dotastrotalk .slides h3, .dotastrotalk .messages h3 { margin: 0px; line-height: 1em; }
 
-.play, .slides .mainplay { cursor: pointer; background-color: rgba(0,0,0,0.6); }
-.slides .mainplay, .slides .mainplay img { transition-property: background-color, opacity; transition-duration: 1s; -moz-transition-property: background-color, opacity; -moz-transition-duration: 1s; -o-transition-property: background-color, opacity; -o-transition-duration: 1s; -webkit-transition-property: background-color, opacity; -webkit-transition-duration: 1s; }
-.slides .mainplay { border: 1px solid #d1d1d1; border-left: 0px; margin-top: 200px; display: inline-block; }
-.slides:hover .mainplay img { opacity: 1; cursor: pointer; }
-.slides .mainplay img { opacity: 0.7; border-left: 0px; display: block; margin: 0px; padding: 0px; line-height: 0px; }
-.controls { position: absolute; bottom: 0px; left: 0px; width: 100%; }
-.controls .play { float: left; margin: 0px; width: 65px; height: 65px; }
-.controls .play img { margin: 0px; height: 65px; }
-.controls_right { float: right; width: 100%; height: 65px; background-color: rgba(0,0,0,0.6); }
-.controls_row { height: 32px; margin: 0 4px; }
-.controls .volume, .controls .bandwidth, .controls .fullscreen, .controls .clock, .controls .mute { display: inline-block; }
-.controls .progress { width: 100%; height: 28px; display: inline-block; }
-.controls .progress_outer { margin: 8px 10px; }
-.controls .progress_inner { background: rgba(255,255,255,0.8); padding: 0 8px; }
-.ui-slider { position: relative; text-align: left; height: 12px; }
-.ui-slider .ui-slider-handle { margin-left: -8px; height: 12px; position: absolute; width: 16px; z-index: 2; }
-.controls .fullscreen { width: 32px; height: 32px; }
-.controls .clock { height: 32px; line-height: 16px; position: absolute; top: 0px; margin: 8px; text-shadow: none; color: rgba(255,255,255,0.8); }
-.controls .mute { width: 32px; height: 32px; }
-.controls .volume { width: 32px; height: 32px; }
-.controls .bandwidth { width: 32px; height: 32px; display: none; }
-.controls .bandwidth.selected { display: inline-block; }
-.controls .play:hover, .controls .volume:hover, .controls .mute:hover, .controls .bandwidth:hover, .controls .fullscreen:hover { cursor: pointer; }
-
-.audio,.credits { clear: both; max-width: 100%; }
-video { margin: 0px; display: block; }
-
-.audio, .credits { margin-bottom: 8px; }
-.credits ul { margin: 0px; }
-.credits ul li { display: inline-block; margin-right: 6px; font-size: 80%; }
-
-.messages { clear: both; max-width: 100%; margin-left: 0px; margin-top: 20px; }
-.messages h3 { line-height: 40px; margin-left: 0px; }
-.messages ul { list-style: none; margin: 0px; padding: 0px; }
-.messages ul li { position: relative; margin: 0px; border-bottom: 1px solid #D3D3D3; clear: both; padding: 8px 0px; background-image: none; }
-.messages .timestamp { font-weight: bold; display: inline-block; margin-right: 0.1em; }
-.messages .timestamp time { display: inline-block; }
-.messages .tweet { overflow: hidden; }
-.messages .tweet .bubble { float: left; margin-right: 40px; }
-.messages .tweet .bubble p { margin: 0px; }
+.dotastrotalk .messages { clear: both; max-width: 100%; margin-left: 0px; margin-top: 20px; }
+.dotastrotalk .messages h3 { line-height: 40px; margin-left: 0px; }
+.dotastrotalk .messages ul { list-style: none; margin: 0px; padding: 0px; }
+.dotastrotalk .messages ul li { position: relative; margin: 0px; border-bottom: 1px solid #D3D3D3; clear: both; padding: 8px 0px; background-image: none; }
+.dotastrotalk .messages .timestamp { font-weight: bold; display: inline-block; margin-right: 0.1em; }
+.dotastrotalk .messages time { display: inline-block; }
+.dotastrotalk .messages .tweet { overflow: hidden; }
+.dotastrotalk .messages .tweet .bubble { float: left; margin-right: 40px; }
+.dotastrotalk .messages .tweet .bubble p { margin: 0px; }
 .messages .tweet .tweeter { position: absolute; top: 0px; right: 0px; }
-.messages .profile_image { display: block; width: 38px; }
-.messages .profile_image img { width: 38px;  height: auto; margin: 0px;}
+.dotastrotalk .messages .profile_image { display: block; width: 38px; }
+.dotastrotalk .messages .profile_image img { width: 38px;  height: auto; margin: 0px;}
 
-.pres .messages { display: inline-block; margin-top: 0px; }
-.pres .messages h3 { line-height: 1em; margin-left: 0.75em;}
-.pres .messages ul { margin: 0.5em 0 0 0; height: 500px; overflow: auto; padding: 0px; list-style: none; }
-.pres .messages ul li { border: 0px; margin-left: 0.75em;background: none; padding: 0px; margin-bottom: 0.75em; margin-right: 5px; position:relative; display: block; }
-.pres .messages .tweeter { position: relative; margin: 0px 0px; display: block; text-align: center; }
-.pres .messages .tweeter .profile_image { display: inline-block; width: 100%; height: auto; margin: 0px; }
-.pres .messages .tweeter .profile_image a {  }
-.pres .messages .timestamp { display: inline-block; }
-.pres .messages .timestamp:after { content: ":" }
+.dotastrotalk .messages { display: inline-block; margin-top: 0px; }
+.dotastrotalk .messages h3 { line-height: 1em; margin-left: 0.75em; margin-bottom: 0.5em; }
+.dotastrotalk .messages ul { margin: 0.5em 0 0 0; height: 500px; overflow: auto; padding: 0px; list-style: none; }
+.dotastrotalk .messages ul li { border: 0px; margin-left: 0.75em;background: none; padding: 0px; margin-bottom: 0.75em; margin-right: 5px; position:relative; display: block; }
+.dotastrotalk .messages .tweeter { position: relative; margin: 0px 0px; display: block; text-align: center; }
+.dotastrotalk .messages .tweeter .profile_image { display: inline-block; width: 100%; height: auto; margin: 0px; }
+.dotastrotalk .messages .tweeter .profile_image a {  }
+.dotastrotalk .messages .timestamp { display: inline-block; }
+.dotastrotalk .messages .timestamp:after { content: ":" }
 
-.pres .messages .note .bubble { background-color: #d9daf7!important; }
-.pres .messages .tweet .bubble { background-color: #E9E9E9!important; }
+.dotastrotalk .messages .note .bubble { background-color: #d9daf7!important; }
+.dotastrotalk .messages .tweet .bubble { background-color: #E9E9E9!important; }
 
-.pres .messages .bubble p { margin: 0px; }
-.pres .messages .bubble { float: none; line-height: 1.25em; min-height: 2em; background: #202020; position: relative; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em; border-radius: 0.5em; padding: 1em; margin: 0em; text-align: center; box-shadow: 1px 1px 4px rgba(0,0,0,0.0); }
-.pres .messages .bubble:before,.bubble:after { content:""; position: absolute; width: 0; height: 0; }
-.pres .messages .bubble.bubble-east { text-align: left; margin: 0 0 0 0em; }
-.pres .messages .bubble.bubble-east:before { right: 100%; top: 50%; margin: -0.75em 0 0 0; border-top: 0.75em solid transparent; border-right: 0.75em solid #d9daf7; border-bottom: 0.75em solid transparent; }
-.pres .messages .bubble.bubble-north { text-align: center; margin: 0 0 0.75em 0em; }
-.pres .messages .bubble.bubble-north:after { left: 50%; top: 100%; margin: 0 0 0 -0.75em; border-left: 0.75em solid transparent; border-top: 0.75em solid #E9E9E9; border-right: 0.75em solid transparent; }
-
-
-.pres .messages .ieold .bubble-north:before {_border-top-color: pink,_border-right-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
-.pres .messages .ieold .bubble-east:before {_border-top-color: pink,_border-bottom-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
-
+.dotastrotalk .messages .bubble p { margin: 0px; }
+.dotastrotalk .messages .bubble { float: none; line-height: 1.25em; min-height: 2em; background: #202020; position: relative; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em; border-radius: 0.5em; padding: 1em; margin: 0em; text-align: center; box-shadow: 1px 1px 4px rgba(0,0,0,0.0); }
+.dotastrotalk .messages .bubble:before,.bubble:after { content:""; position: absolute; width: 0; height: 0; }
+.dotastrotalk .messages .bubble.bubble-east { text-align: left; margin: 0 0 0 0em; }
+.dotastrotalk .messages .bubble.bubble-east:before { right: 100%; top: 50%; margin: -0.75em 0 0 0; border-top: 0.75em solid transparent; border-right: 0.75em solid #d9daf7; border-bottom: 0.75em solid transparent; }
+.dotastrotalk .messages .bubble.bubble-north { text-align: center; margin: 0 0 0.75em 0em; }
+.dotastrotalk .messages .bubble.bubble-north:after { left: 50%; top: 100%; margin: 0 0 0 -0.75em; border-left: 0.75em solid transparent; border-top: 0.75em solid #E9E9E9; border-right: 0.75em solid transparent; }
+.dotastrotalk .messages .ieold .bubble-north:before {_border-top-color: pink,_border-right-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
+.dotastrotalk .messages .ieold .bubble-east:before {_border-top-color: pink,_border-bottom-color: pink,_border-left-color:pink,_filter:chroma(color=pink);}
 
 @media only screen and (max-width: 959px){
 	.slides { max-width: 100%!important; }
-	.pres .slide-holder { width: 100%!important; }
-	.pres .message-holder { width: 100%; }
-	.pres .slides { width: 100%; max-width: 100%!important; max-height: 100%; height: auto; display: block; }
-	.pres .messages { display: block; margin-left: 0px; width: 100%; }
-	.pres video { max-width: 100%; }
-	.pres .messages h3 { margin-left: 0px; line-height: 40px; }
-	.pres .messages ul { margin-left: 0px; height: auto; }
-	.pres .messages ul li { margin: 0px; margin-bottom: 0.75em; }
+	.dotastrotalk .slide-holder { width: 100%!important; }
+	.dotastrotalk .message-holder { width: 100%; }
+	.dotastrotalk .messages h3 { margin-left: 0px; line-height: 40px; }
+	.dotastrotalk .messages ul li { margin: 0px; margin-bottom: 0.75em; }
 	ul.other-speakers li { height: auto; margin-bottom: 20px; }
 	ul.other-speakers li img { max-width: 100%; }
 }
