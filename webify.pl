@@ -426,7 +426,7 @@ if($flag{'makevideo'} == 1){
 }
 
 $tstart = parse_datetime($talkstart);
-$tzoffset = 0;
+$tzoffset = -4;
 
 open(TMPL,"template.html");
 @lines = <TMPL>;
@@ -475,7 +475,7 @@ foreach $l (@ls){
 			$slidehtml .= "									<li class=\"slide slide-video one-fourth".($extra)."\" id=\"".($i)."\"><div class=\"pic\"><video id=\"video$i\" width=\"100%\" poster=\"$rest.jpg\"><source src=\"$rest.webm\" type=\"video/webm\" /><source src=\"$rest.mp4\" type=\"video/mp4\" /></video></div><div class=\"timestamp\">Time: <time>$timestamp</time></div></li>\n";
 		}
 		if($t eq "message"){
-			($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($tstart+parse_timestamp($timestamp)+$tzoffset*3600);
+			($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($tstart+parse_timestamp($timestamp));
 			$keep = $timestamp;
 			$timestamp = format_times($hour,$min,$sec);
 			$messages{$timestamp."_note"} = "<div class=\"bubble bubble-east\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"$keep\"><time>$timestamp</time></div> $rest</div></div>";
@@ -561,9 +561,10 @@ foreach $tweet (@tweets){
 		}
 		if($tweet =~ /\"created_at\":\"([^\"]*)"/){ $created_at = parse_datetime($1); }
 		($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($created_at+$tzoffset*3600);
-		$diff = $created_at-$tstart;
+		$diff = $created_at+$tzoffset*3600-$tstart;
 		if($diff > 0){
 			$timestamp = format_times($hour,$min,$sec);
+			$timeindex = format_timeindex($hour,$min,$sec);
 			$messages{$timestamp."_tweet"} = "<div class=\"bubble bubble-north\"><div class=\"bubble-inner\"><div class=\"timestamp\" data=\"".format_timestamp($diff)."\"><time>$timestamp<\/time><\/div> ".$text."</div></div><div class=\"tweeter\"><div class=\"profile_image\"><a href=\"http://twitter.com/$screen_name/statuses/$statusid\"><img src=\"".$profile_image_url."\" alt=\"$screen_name\" title=\"$screen_name\" \/></a></div></div>";
 		}
 	}
@@ -642,6 +643,12 @@ sub format_times {
 	$min = $_[1];
 	$sec = $_[2];
 	return sprintf('%02d:%02d:%02d',$hour,$min,$sec);
+}
+sub format_timeindex {
+	local ($t,$hour,$min,$sec,$i);
+	$hour = $_[0];
+	$min = $_[1];
+	return sprintf('%02d:%02d',$hour,$min);
 }
 sub format_timestamp {
 	local ($t,$hour,$min,$sec,$i);
